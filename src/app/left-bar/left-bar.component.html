@@ -1,0 +1,22 @@
+<div class="parent">
+  <div class="container">
+  <h2>Populäre Bücher</h2>
+
+    <div class="info-box">
+      <div class="box">
+      @for(data of searchResult; track $index) {
+
+      <div class="box">
+        <a>{{ data.title }}</a>
+        <p class="author-text">{{ data.author }}</p>
+        <p class="published-text">Jahr {{ data.published}}</p>
+      </div>
+        }
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,27 @@
+
+<div class="container">
+
+  <h1>Suche nach einem Buch oder Autor </h1>
+  <div class="elements">
+
+    <input type="text"
+    [(ngModel)]="searchInput" (keydown.code.enter)="onSearch(searchInput)" placeholder="Suchen...">
+
+    <button type="button" (click)="onSearch(searchInput)">
+      <img src="search.svg">
+    </button>
+
+  </div>
+
+    @if (searchResult.length >= 1) {
+      <app-search-result
+        [data]="searchResult"
+        ></app-search-result>
+
+      }@else{
+      <div class="error">
+        <span>Nichts gefunden...</span>
+      </div>
+      }
+
+</div>
