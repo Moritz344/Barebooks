@@ -5,5 +5,8 @@ export interface Book{
   published: string;
   languages: string[];
   edition_count: string;
+  olid: string;
+  workOlid: string;
+  description: string;
 
 };

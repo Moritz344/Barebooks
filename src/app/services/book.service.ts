@@ -27,12 +27,24 @@ export class BookService {
 
     params.append("limit","10");
 
-
+    params.append("fields","title,author_name,key,cover_edition_key,first_publish_year,language,edition_count")
 
     const url = `${this.baseUrl}/search.json?q${params.toString()}`;
 
     return this.http.get(url);
 
+  }
+
+  getImageFromOlid(olid: string) {
+    const imageUrl = `https://covers.openlibrary.org/b/olid/${olid}-L.jpg `
+
+    return imageUrl;
+
+  }
+
+  getDescriptionFromOlid(olidWork: string) {
+    const url = `https://openlibrary.org${olidWork}.json `
+    return this.http.get(url);
   }
 
   getPopular() {
@@ -41,33 +53,52 @@ export class BookService {
     params.append("has_fulltext","true");
     params.append("limit","10");
 
-    const url = `${this.baseUrl}/search.json?q=the&${params.toString()}`;
-    console.log(url);
+    params.append("fields","title,author_name,first_publish_year,edition_count")
 
+
+    const url = `${this.baseUrl}/search.json?q=the&${params.toString()}`;
     return this.http.get(url);
   }
 
 
-  fetchInformation(result: any,searchResult: Book[]): Book[] {
+  fetchInformation(result: any,searchResult: Book[],): Book[] {
+
       for (let i=0;i<result?.docs.length;i++) {
         let title = result.docs[i]["title"];
         let author = result.docs[i]["author_name"][0];
         let published = result.docs[i]["first_publish_year"];
         let edition_count = result.docs[i]["edition_count"];
         let languages = result.docs[i]["language"];
-        searchResult.push({
-          title:title,
-          author:author,
-          published: published,
-          languages: languages,
-          edition_count: edition_count
-        });
-      }
+        let olid = result.docs[i]["cover_edition_key"]
+        var workOlid = result.docs[i]["key"];
 
-      return searchResult;
+
+        const book: Book = {
+          title,
+          author,
+          published,
+          languages,
+          edition_count,
+          olid,
+          workOlid,
+          description: ""
+        };
+
+
+
+        this.getDescriptionFromOlid(workOlid).subscribe((descResult: any) => {
+          let description = descResult.description;
+          if (typeof(description) == "object") {
+            book.description = description.value;
+          }else {
+            book.description = description;
+          }
+        });
+        searchResult.push(book);
+
+      }
+        return searchResult;
 
   }
-
-
 
 }

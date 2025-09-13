@@ -5,6 +5,8 @@ import { BookService } from '../services/book.service';
 import { Book } from '../models/book.model';
 import { SearchResultComponent } from '../search-result/search-result.component';
 
+// TODO: loading animation circle thing
+
 
 @Component({
   selector: 'app-search',
@@ -24,10 +26,13 @@ export class SearchComponent {
 
   public onSearch(input: string) {
     this.searchResult.length = 0 ;
+
     this.bookService.search(input).subscribe((result: any)  => {
-      this.bookService.fetchInformation(result,this.searchResult,);
+      this.bookService.fetchInformation(result,this.searchResult);
+      console.log(this.searchResult);
     });
-    console.log(this.searchResult);
+
+
   }
 
 

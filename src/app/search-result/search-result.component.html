@@ -1,11 +1,18 @@
 
 <div class="container">
   @for( result of data; track $index) {
-    <div class="card">
-      <h1> {{ result.title }}</h1>
-      <span> {{ result.author }}</span>
-      <span> {{ result.published }}</span>
-      <span> {{ result.edition_count }}</span>
+    <div class="card-item">
+      <div class="image-container">
+       <img [src]="'https://covers.openlibrary.org/b/olid/' + result.olid + '-M.jpg'" width="200" height="250"
+        [alt]="result.title || 'Cover'">
+      </div>
+
+        <div class="info-items">
+          <strong> {{ result.title }}</strong>
+          <span> {{ result.author}}</span>
+          <p> {{ result.description }}</p>
+        </div>
+
     </div>
   }
 </div>

@@ -4,6 +4,8 @@ import { HeaderComponent } from './header/header.component';
 import { LeftBarComponent } from './left-bar/left-bar.component';
 import { SearchComponent } from './search/search.component';
 
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
