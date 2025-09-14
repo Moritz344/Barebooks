@@ -10,7 +10,7 @@
       @for(data of searchResult; track $index) {
 
       <div class="box">
-        <a>{{ data.title }}</a>
+        <a (click)="onTitle(data.title)">{{ data.title }}</a>
         <p class="author-text">{{ data.author }}</p>
         <p class="published-text">Jahr {{ data.published}}</p>
       </div>

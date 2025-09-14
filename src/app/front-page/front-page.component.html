@@ -1,5 +1,10 @@
-<app-header></app-header>
+<app-header
+  ></app-header>
 
-<app-search></app-search>
+<app-search
+    [leftBarAction]="leftBarActionTitle"
+></app-search>
 
-<app-left-bar></app-left-bar>
+<app-left-bar
+    (searchOnClick)="onSearchClick($event)"
+></app-left-bar>

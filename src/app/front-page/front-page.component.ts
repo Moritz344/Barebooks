@@ -12,4 +12,12 @@ import { SearchComponent } from '../search/search.component';
 })
 export class FrontPageComponent {
 
+  leftBarActionTitle = "";
+
+  constructor() {}
+
+  onSearchClick(title: string) {
+    this.leftBarActionTitle = title;
+  }
+
 }

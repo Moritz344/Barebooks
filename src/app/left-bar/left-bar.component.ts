@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,Output, EventEmitter} from '@angular/core';
 import { BookService } from '../services/book.service';
 import { Book } from '../models/book.model';
 
@@ -8,12 +8,18 @@ import { Book } from '../models/book.model';
   templateUrl: './left-bar.component.html',
   styleUrl: './left-bar.component.css'
 })
+
 export class LeftBarComponent implements OnInit{
 
+  @Output() searchOnClick = new EventEmitter<string>();
   searchResult: Book[] = [];
   isLoading = false;
 
   constructor(private bookService: BookService) {}
+
+  onTitle(title: string) {
+    this.searchOnClick.emit(title);
+  }
 
   ngOnInit() {
     this.isLoading = true;

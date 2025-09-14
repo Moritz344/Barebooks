@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input,SimpleChanges ,OnChanges } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { BookService } from '../services/book.service';
@@ -17,7 +17,9 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent {
+export class SearchComponent implements OnChanges {
+
+  @Input() leftBarAction = "";
 
   searchInput = "";
   searchResult: Book[] = [];
@@ -26,6 +28,12 @@ export class SearchComponent {
   rows = 0;
 
   constructor(private bookService: BookService) {}
+
+   ngOnChanges(changes: SimpleChanges) {
+      if (this.leftBarAction) {
+        this.onSearch(this.leftBarAction);
+      }
+  }
 
   public onSearch(input: string) {
     this.searchResult.length = 0 ;
