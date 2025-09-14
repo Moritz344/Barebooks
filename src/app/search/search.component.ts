@@ -9,6 +9,8 @@ import { PaginatorState } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 
 // TODO: filter options for search
+// https://openlibrary.org/search.json?subject=fantasy
+
 
 @Component({
   selector: 'app-search',
@@ -26,12 +28,21 @@ export class SearchComponent implements OnChanges {
   isLoading = false;
   first = 0;
   rows = 0;
+  showNothing = true;
+
+  showFilter = false;
 
   constructor(private bookService: BookService) {}
 
    ngOnChanges(changes: SimpleChanges) {
       if (this.leftBarAction) {
         this.onSearch(this.leftBarAction);
+      }
+
+      if (this.searchResult.length >= 1) {
+        this.showNothing = false;
+      } else {
+        this.showNothing = true;
       }
   }
 
@@ -48,6 +59,11 @@ export class SearchComponent implements OnChanges {
     });
 
 
+  }
+
+  onFilter() {
+    this.showFilter = !this.showFilter;
+    this.showNothing = !this.showNothing;
   }
 
   loadBooks(page: string) {
