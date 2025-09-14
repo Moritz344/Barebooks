@@ -142,4 +142,38 @@ th {
 tr:nth-child(even) {
     background-color: #1A1A1A;
 }
+/* src/styles.scss — am Ende der Datei einfügen */
+
+/* Grundlayout der Page-Buttons */
+.p-paginator .p-paginator-pages .p-paginator-page,
+.p-paginator .p-paginator-pages button.p-paginator-page,
+.p-paginator .p-paginator-pages a.p-paginator-page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 50%;
+  transition: .18s ease, background-color .18s ease, color .18s ease;
+  padding: 0;
+  margin: 0 0.25rem;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page:hover,
+.p-paginator .p-paginator-pages button.p-paginator-page:hover,
+.p-paginator .p-paginator-pages a.p-paginator-page:hover {
+  background-color: #007ad9 !important;
+  color: #fff !important;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight,
+.p-paginator .p-paginator-pages button.p-paginator-page.p-highlight,
+.p-paginator .p-paginator-pages a.p-paginator-page.p-highlight {
+  background-color: red !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transform: none !important;
+}
 

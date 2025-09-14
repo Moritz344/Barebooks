@@ -11,13 +11,15 @@ import { Book } from '../models/book.model';
 export class LeftBarComponent implements OnInit{
 
   searchResult: Book[] = [];
+  isLoading = false;
 
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.bookService.getPopular().subscribe(result => {
-      let data = this.bookService.fetchInformation(result,this.searchResult);
-      console.log(data);
+      this.bookService.fetchInformation(result,this.searchResult);
+      this.isLoading = false;
     });
 
   }

@@ -14,7 +14,7 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
 
-  search(name: string,author?: string) {
+  search(name: string,page: string,author?: string) {
     const params = new URLSearchParams();
 
     if (name) {
@@ -29,8 +29,11 @@ export class BookService {
 
     params.append("fields","title,author_name,key,cover_edition_key,first_publish_year,language,edition_count")
 
+    params.append("page",page);
+
     const url = `${this.baseUrl}/search.json?q${params.toString()}`;
 
+    console.log(url);
     return this.http.get(url);
 
   }
@@ -55,13 +58,13 @@ export class BookService {
 
     params.append("fields","title,author_name,first_publish_year,edition_count")
 
-
     const url = `${this.baseUrl}/search.json?q=the&${params.toString()}`;
+    console.log(url);
     return this.http.get(url);
   }
 
 
-  fetchInformation(result: any,searchResult: Book[],): Book[] {
+  fetchInformation(result: any,searchResult: Book[]): Book[] {
 
       for (let i=0;i<result?.docs.length;i++) {
         let title = result.docs[i]["title"];

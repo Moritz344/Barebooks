@@ -1,9 +1,12 @@
 <div class="parent">
   <div class="container">
   <h2>Popular Books</h2>
-
+  @if (isLoading) {
+    <div class="load"></div>
+  }
     <div class="info-box">
       <div class="box">
+
       @for(data of searchResult; track $index) {
 
       <div class="box">

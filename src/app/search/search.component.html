@@ -13,6 +13,7 @@
 
   </div>
 
+
     @if (searchResult.length >= 1) {
       <app-search-result
         [data]="searchResult"
@@ -23,5 +24,17 @@
         <span>Nothing here...</span>
       </div>
       }
+  @if (isLoading) {
+    <div class="load"></div>
+  }
 
+<div class="pages">
+
+  @if (searchResult.length >= 1) {
+    <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first" [rows]="rows" [totalRecords]="120"  />
+  }
+
+  </div>
 </div>
