@@ -2,6 +2,7 @@
   position: absolute;
   top: 150px;
   left: 400px;
+
 }
 
 input{
@@ -11,8 +12,14 @@ input{
 }
 
 .elements {
-  position: absolute;
+  position: relative;
 }
+
+.search-bar{
+  position: relative;
+}
+
+
 .filter-button {
   position: absolute;
   top: 80px;
@@ -47,9 +54,9 @@ input{
 }
 
 .elements button{
-    position: absolute;
+    position: relative;
     top:5px;
-    right:0px;
+    right:50px;
     border: none;
     font-size: 20px;
     background: transparent;

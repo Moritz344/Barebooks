@@ -29,6 +29,7 @@ export class SearchComponent implements OnChanges {
   first = 0;
   rows = 0;
   showNothing = true;
+  hidePageBar = false;
 
   showFilter = false;
 
@@ -81,6 +82,7 @@ export class SearchComponent implements OnChanges {
   }
 
   onPageChange(event: PaginatorState) {
+    this.hidePageBar = true;
     console.log('Page change:', event);
     this.first = event.first ?? 0;
     this.rows = event.rows ?? 10;

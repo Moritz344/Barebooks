@@ -26,6 +26,7 @@ export class LeftBarComponent implements OnInit{
     this.bookService.getPopular().subscribe(result => {
       this.bookService.fetchInformation(result,this.searchResult);
       this.isLoading = false;
+    console.log(this.searchResult);
     });
 
   }

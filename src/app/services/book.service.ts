@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { Book } from '../models/book.model';
@@ -10,12 +10,14 @@ import { Book } from '../models/book.model';
 export class BookService {
 
   baseUrl = "https://openlibrary.org";
+  email = "moritzmaier353@gmail.com";
 
   constructor(private http: HttpClient) { }
 
 
   search(name: string,page: string,author?: string) {
     const params = new URLSearchParams();
+    
 
     if (name) {
       params.append("",name);
@@ -34,7 +36,7 @@ export class BookService {
     const url = `${this.baseUrl}/search.json?q${params.toString()}`;
 
     console.log(url);
-    return this.http.get(url);
+    return this.http.get(url );
 
   }
 
@@ -89,17 +91,20 @@ export class BookService {
 
 
 
-        this.getDescriptionFromOlid(workOlid).subscribe((descResult: any) => {
-          let description = descResult.description;
-          if (typeof(description) == "object") {
-            book.description = description.value;
-          }else {
-            book.description = description;
-          }
-        });
-        searchResult.push(book);
+        if (workOlid !== undefined) {
+           this.getDescriptionFromOlid(workOlid).subscribe((descResult: any) => {
+             let description = descResult.description;
+             if (typeof(description) == "object") {
+               book.description = description.value;
+             }else {
+               book.description = description;
+             }
+           });
 
       }
+           searchResult.push(book);
+
+        }
         return searchResult;
 
   }
