@@ -55,7 +55,7 @@ input{
 
 .elements button{
     position: relative;
-    top:5px;
+    top:3px;
     right:50px;
     border: none;
     font-size: 20px;
@@ -115,8 +115,8 @@ input{
 
 .pages{
   position: absolute;
-  bottom: 50px;
-  right: 700px;
+  left: 0px;
+
 }
 
 ::ng-deep .p-paginator .p-paginator-prev,

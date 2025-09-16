@@ -42,7 +42,6 @@ export class BookService {
 
   getImageFromOlid(olid: string) {
     const imageUrl = `https://covers.openlibrary.org/b/olid/${olid}-L.jpg `
-
     return imageUrl;
 
   }
@@ -73,7 +72,6 @@ export class BookService {
         let author = result.docs[i]["author_name"][0];
         let published = result.docs[i]["first_publish_year"];
         let edition_count = result.docs[i]["edition_count"];
-        let languages = result.docs[i]["language"];
         let olid = result.docs[i]["cover_edition_key"]
         var workOlid = result.docs[i]["key"];
 
@@ -82,7 +80,6 @@ export class BookService {
           title,
           author,
           published,
-          languages,
           edition_count,
           olid,
           workOlid,
@@ -101,8 +98,10 @@ export class BookService {
              }
            });
 
+      }else{
+        console.error("work olid ist undefined",workOlid);
       }
-           searchResult.push(book);
+      searchResult.push(book);
 
         }
         return searchResult;

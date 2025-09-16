@@ -51,8 +51,6 @@ export class SearchComponent implements OnChanges {
     this.searchResult.length = 0 ;
     this.isLoading = true;
 
-    this.searchInput = input;
-
     this.bookService.search(input,"1").subscribe((result: any)  => {
       this.bookService.fetchInformation(result,this.searchResult);
       this.isLoading = false;

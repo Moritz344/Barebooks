@@ -10,9 +10,7 @@ import { Book } from '../models/book.model';
 export class SearchResultComponent {
   @Input() data: Book[] = [];
 
-  constructor() {
-    console.log("data:",this.data);
-  }
+  constructor() {}
 
 
 }
