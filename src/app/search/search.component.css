@@ -19,27 +19,47 @@ input{
   position: relative;
 }
 
-
-.filter-button {
-  position: absolute;
-  top: 80px;
-  left: 510px;
+.filter-block{
+  display: inline-flex;
+  background-color: var(--color-primary);
+  border-radius: 5px;
+  padding: 5px;
+  width: 150px;
+  transition: 0.3s ease;
 }
-.filter-button button{
-  height: 40px;
+.filter-block:hover{
+  background-color: var(--color-primary-hover);
+}
+
+.filter-box{
+  display: grid;
+  grid-template-columns: repeat(3,auto);
+  gap: 10px;
+  width: 500px;
+  margin-bottom: 10px;
+}
+
+.delete-filter{
+  position: absolute;
+  margin-left: 100px;
+  background: transparent;
+  top: 65px;
+}
+
+.ribbon{
+  margin-right: 5px;
 }
 
 .filter-options{
-  position: absolute;
-  top: 150px;
-  left: 0px;
-  width: 100%;
+  display: flex;
+  width: 200px;
+  margin-bottom: 50px;
 
 }
 
 .error{
   display: flex;
-  margin-top: 100px;
+  margin-top: 0px;
   margin-left: 0px;
   font-size: 20px;
   border-radius: 20px;
@@ -53,7 +73,7 @@ input{
   cursor: pointer;
 }
 
-.elements button{
+.icon-button{
     position: relative;
     top:3px;
     right:50px;
@@ -64,11 +84,16 @@ input{
 
 
 
-.elements button:hover{
+.icons-button button:hover{
   background-color: rgba(0,0,0,0.3);
 }
 
-
+.filter-button{
+  position: absolute;
+  left: 520px;
+  top: 5px;
+  height: 40px;
+}
 
 
 

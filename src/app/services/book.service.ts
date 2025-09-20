@@ -10,14 +10,13 @@ import { Book } from '../models/book.model';
 export class BookService {
 
   baseUrl = "https://openlibrary.org";
-  email = "moritzmaier353@gmail.com";
 
   constructor(private http: HttpClient) { }
 
 
-  search(name: string,page: string,author?: string) {
+  search(name: string,page: string,author?: string,filterOptions?: string[]) {
     const params = new URLSearchParams();
-    
+
 
     if (name) {
       params.append("",name);
@@ -29,13 +28,17 @@ export class BookService {
 
     params.append("limit","10");
 
-    params.append("fields","title,author_name,key,cover_edition_key,first_publish_year,language,edition_count")
+    params.append("fields","title,author_name,key,cover_edition_key,first_publish_year,edition_count")
+
+    if (filterOptions) {
+      params.append("subject?",filterOptions.join(","));
+    }
 
     params.append("page",page);
 
     const url = `${this.baseUrl}/search.json?q${params.toString()}`;
 
-    console.log(url);
+    console.log("search",url);
     return this.http.get(url );
 
   }
@@ -54,13 +57,12 @@ export class BookService {
   getPopular() {
     const params = new URLSearchParams();
 
-    params.append("has_fulltext","true");
+    params.append("fields","title,author_name,")
+
     params.append("limit","10");
 
-    params.append("fields","title,author_name,first_publish_year,edition_count")
-
-    const url = `${this.baseUrl}/search.json?q=the&${params.toString()}`;
-    console.log(url);
+    const url = `${this.baseUrl}/search.json?q=${params}`;
+    console.log("p",url);
     return this.http.get(url);
   }
 

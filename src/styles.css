@@ -65,13 +65,11 @@ a:hover {
 }
 
 button {
-    display: inline-block;
     background-color: var(--color-primary);
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     font-weight: 500;
-    cursor: pointer;
     transition: background-color 0.2s ease-in-out;
     border: none;
 }
@@ -97,6 +95,18 @@ button:hover {
 .card:hover {
     transform: translateY(-4px);
 }
+
+html, body {
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 
 /* ===========================
    Forms / Inputs

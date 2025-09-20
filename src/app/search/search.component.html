@@ -1,16 +1,6 @@
 
 <div class="container">
 
-  <div class="filter-button">
-    <button (click)="onFilter()">Filter</button>
-  </div>
-
-  @if (showFilter) {
-    <div class="filter-options">
-    <select>Author</select>
-    <select>Tags</select>
-    </div>
-  }
 
   <h1>Search for Books or Authors </h1>
   <div class="elements">
@@ -18,10 +8,39 @@
     <input class="search-bar" type="text"
     [(ngModel)]="searchInput" (keydown.code.enter)="onSearch(searchInput)" placeholder="Search...">
 
-    <button type="button" (click)="onSearch(searchInput)">
+
+    <button class="icon-button" type="button" (click)="onSearch(searchInput)">
       <img src="search.svg">
     </button>
 
+    @if (selectedFilterOptions) {
+      <div class="filter-box">
+      @for(i of selectedFilterOptions;track $index) {
+          <div class="filter-block">
+            <img class="ribbon" src="ribbon.svg" width="20">
+            <span>
+            {{ i }}</span>
+            <button class="delete-filter" (click)="removeFilter(i)">
+            <img src="close.svg" width="20">
+            </button>
+
+          </div>
+      }
+      </div>
+    }
+
+     <button class="filter-button" (click)="onFilter()">Filter</button>
+    <div *ngIf="showFilter" class="filter-options">
+      <select
+      [(ngModel)]="filterOption"
+      (ngModelChange)="addFilterOption($event)"
+      >
+      @for( opt of filterOptionsArray; track $index) {
+        <option> {{ opt }}</option>
+      }
+      </select>
+
+    </div>
   </div>
 
 
@@ -29,16 +48,12 @@
       <app-search-result
         [data]="searchResult"
         ></app-search-result>
-      }@else{
-      <div ngIf="showNothing"class="error">
-        <span>Nothing here...</span>
-      </div>
       }
-  @if (isLoading) {
+    @if (isLoading) {
     <div class="load"></div>
   }
 
-<div  class="pages">
+<div class="pages">
 
   @if (searchResult.length >= 1) {
     <p-paginator

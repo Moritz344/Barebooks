@@ -33,37 +33,58 @@ export class SearchComponent implements OnChanges {
 
   showFilter = false;
 
-  constructor(private bookService: BookService) {}
+  filterOptionsArray = ["Fantasy","Adventure","Romance"];
+  selectedFilterOptions: any = [];
+  filterOption = "";
 
-   ngOnChanges(changes: SimpleChanges) {
-      if (this.leftBarAction) {
-        this.onSearch(this.leftBarAction);
-      }
+constructor(private bookService: BookService) {}
 
-      if (this.searchResult.length >= 1) {
-        this.showNothing = false;
-      } else {
-        this.showNothing = true;
-      }
+ ngOnChanges(changes: SimpleChanges) {
+    if (this.leftBarAction) {
+      this.onSearch(this.leftBarAction);
+    }
+
+    if (this.searchResult.length >= 1) {
+      this.showNothing = false;
+    } else {
+      this.showNothing = true;
+    }
+}
+
+public onSearch(input: string) {
+  this.searchResult.length = 0 ;
+  this.isLoading = true;
+
+  this.bookService.search(input,"1",this.selectedFilterOptions).subscribe((result: any)  => {
+    this.bookService.fetchInformation(result,this.searchResult);
+    this.isLoading = false;
+    this.resetPaginator();
+  });
+
+
+}
+
+onFilter() {
+  this.showFilter = !this.showFilter;
+
+}
+
+addFilterOption(newFilter: string) {
+  if (this.filterOption !== "" && !this.selectedFilterOptions.includes(this.filterOption)) {
+    this.selectedFilterOptions.push(newFilter);
+    console.log(this.selectedFilterOptions);
   }
+}
 
-  public onSearch(input: string) {
-    this.searchResult.length = 0 ;
-    this.isLoading = true;
+removeFilter(filter: string) {
+  console.log(filter)
+  const index = this.selectedFilterOptions.indexOf(filter);
 
-    this.bookService.search(input,"1").subscribe((result: any)  => {
-      this.bookService.fetchInformation(result,this.searchResult);
-      this.isLoading = false;
-      this.resetPaginator();
-    });
+  this.selectedFilterOptions.splice(index,1);
 
+  console.log(this.selectedFilterOptions);
 
-  }
-
-  onFilter() {
-    this.showFilter = !this.showFilter;
-    this.showNothing = !this.showNothing;
-  }
+}
 
   loadBooks(page: string) {
     this.searchResult.length = 0;
