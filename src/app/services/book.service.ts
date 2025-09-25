@@ -14,12 +14,14 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
 
-  search(name: string,page: string,author?: string,filterOptions?: string[]) {
+  search(name: string,page: string,author?: string,filterOptionsGenre?: string[],filterOptionsYears?: string[]) {
     const params = new URLSearchParams();
 
 
-    if (name) {
-      params.append("",name);
+    if (name !== "") {
+      params.append("q",name);
+    }else{
+      params.append("q","book");
     }
 
     if (author) {
@@ -30,13 +32,17 @@ export class BookService {
 
     params.append("fields","title,author_name,key,cover_edition_key,first_publish_year,edition_count")
 
-    if (filterOptions) {
-      params.append("subject?",filterOptions.join(","));
+    if (filterOptionsGenre && filterOptionsGenre.length >= 1) {
+      params.append("subject",filterOptionsGenre.join(","));
+    }
+
+    if (filterOptionsYears && filterOptionsYears.length >= 1) {
+      params.append("first_publish_year",filterOptionsYears.join(","));
     }
 
     params.append("page",page);
 
-    const url = `${this.baseUrl}/search.json?q${params.toString()}`;
+    const url = `${this.baseUrl}/search.json?${params.toString()}`;
 
     console.log("search",url);
     return this.http.get(url );
@@ -69,13 +75,14 @@ export class BookService {
 
   fetchInformation(result: any,searchResult: Book[]): Book[] {
 
+
       for (let i=0;i<result?.docs.length;i++) {
-        let title = result.docs[i]["title"];
-        let author = result.docs[i]["author_name"][0];
-        let published = result.docs[i]["first_publish_year"];
-        let edition_count = result.docs[i]["edition_count"];
-        let olid = result.docs[i]["cover_edition_key"]
-        var workOlid = result.docs[i]["key"];
+        let title = result.docs[i]["title"] || "";
+        let author = result.docs[i]["author_name"][0] || "";
+        let published = result.docs[i]["first_publish_year"] || "";
+        let edition_count = result.docs[i]["edition_count"] || "";
+        let olid = result.docs[i]["cover_edition_key"] || "";
+        var workOlid = result.docs[i]["key"] || "";
 
 
         const book: Book = {

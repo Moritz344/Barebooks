@@ -2,7 +2,7 @@
 <div class="container">
 
 
-  <h1>Search for Books or Authors </h1>
+  <h1>Search for Books </h1>
   <div class="elements">
 
     <input class="search-bar" type="text"
@@ -18,8 +18,7 @@
       @for(i of selectedFilterOptions;track $index) {
           <div class="filter-block">
             <img class="ribbon" src="ribbon.svg" width="20">
-            <span>
-            {{ i }}</span>
+            <span>{{ i }}</span>
             <button class="delete-filter" (click)="removeFilter(i)">
             <img src="close.svg" width="20">
             </button>
@@ -30,12 +29,24 @@
     }
 
      <button class="filter-button" (click)="onFilter()">Filter</button>
-    <div *ngIf="showFilter" class="filter-options">
+
+     <div *ngIf="showFilter" class="filter-options">
       <select
-      [(ngModel)]="filterOption"
+      [(ngModel)]="filterOptionGenre"
       (ngModelChange)="addFilterOption($event)"
       >
-      @for( opt of filterOptionsArray; track $index) {
+      <option value="" disabled selected hidden>Genres</option>
+      @for( opt of filterOptionsArrayGenre; track $index) {
+        <option> {{ opt }}</option>
+      }
+      </select>
+
+      <select
+      [(ngModel)]="filterOptionYear"
+      (ngModelChange)="addFilterOption($event)"
+      >
+      <option value="" disabled selected hidden>Years</option>
+      @for( opt of filterOptionsArrayYears; track $index) {
         <option> {{ opt }}</option>
       }
       </select>

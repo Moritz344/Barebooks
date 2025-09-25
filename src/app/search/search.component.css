@@ -21,11 +21,13 @@ input{
 
 .filter-block{
   display: inline-flex;
+  align-items: center;
   background-color: var(--color-primary);
   border-radius: 5px;
   padding: 5px;
-  width: 150px;
   transition: 0.3s ease;
+  white-space: nowrap;
+  height: 40px;
 }
 .filter-block:hover{
   background-color: var(--color-primary-hover);
@@ -34,16 +36,15 @@ input{
 .filter-box{
   display: grid;
   grid-template-columns: repeat(3,auto);
-  gap: 10px;
-  width: 500px;
+  gap: 15px;
+  width: 300px;
   margin-bottom: 10px;
 }
 
 .delete-filter{
-  position: absolute;
-  margin-left: 100px;
+  margin-left: auto;
   background: transparent;
-  top: 65px;
+  cursor: pointer;
 }
 
 .ribbon{
@@ -51,9 +52,9 @@ input{
 }
 
 .filter-options{
-  display: flex;
-  width: 200px;
+  display: inline-flex;
   margin-bottom: 50px;
+  gap: 10px;
 
 }
 

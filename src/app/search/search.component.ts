@@ -33,9 +33,38 @@ export class SearchComponent implements OnChanges {
 
   showFilter = false;
 
-  filterOptionsArray = ["Fantasy","Adventure","Romance"];
-  selectedFilterOptions: any = [];
-  filterOption = "";
+  filterOptionsArrayGenre: string[] =
+[
+    "Fiction",
+    "Non-Fiction",
+    "Children's and Young Adult Books",
+    "Art and Music",
+    "Health and Wellness",
+    "Travel",
+    "Philosophy and Religion",
+    "Social Sciences",
+    "Nature and Environment",
+    "Economics and Finance",
+    "Politics",
+    "Technology"
+];
+
+
+  filterOptionsArrayYears: string[] = [
+    "2025",
+    "2024",
+    "2023",
+    "2009",
+    "1990"
+  ];
+
+  selectedFilterOptions: string[] = [];
+
+  selectedFilterOptionsGenres: any = [];
+  filterOptionGenre = "";
+
+  selectedFilterOptionsYears: any = [];
+  filterOptionYear = "";
 
 constructor(private bookService: BookService) {}
 
@@ -55,7 +84,7 @@ public onSearch(input: string) {
   this.searchResult.length = 0 ;
   this.isLoading = true;
 
-  this.bookService.search(input,"1",this.selectedFilterOptions).subscribe((result: any)  => {
+  this.bookService.search(input,"1","",this.selectedFilterOptionsGenres,this.selectedFilterOptionsYears).subscribe((result: any)  => {
     this.bookService.fetchInformation(result,this.searchResult);
     this.isLoading = false;
     this.resetPaginator();
@@ -69,20 +98,32 @@ onFilter() {
 
 }
 
+
 addFilterOption(newFilter: string) {
-  if (this.filterOption !== "" && !this.selectedFilterOptions.includes(this.filterOption)) {
-    this.selectedFilterOptions.push(newFilter);
-    console.log(this.selectedFilterOptions);
+  if (this.filterOptionGenre !== "" && !this.selectedFilterOptionsGenres.includes(this.filterOptionGenre)
+     && this.filterOptionsArrayGenre.includes(newFilter)) {
+    this.selectedFilterOptionsGenres.push(newFilter);
   }
+  if (this.filterOptionYear !== "" && !this.selectedFilterOptionsYears.includes(this.filterOptionYear)
+     && this.filterOptionsArrayYears.includes(newFilter)) {
+    this.selectedFilterOptionsYears.push(newFilter);
+  }
+
+  this.selectedFilterOptions.push(newFilter);
 }
 
 removeFilter(filter: string) {
-  console.log(filter)
-  const index = this.selectedFilterOptions.indexOf(filter);
+  if (this.filterOptionsArrayYears.includes(filter)) {
+    const index = this.selectedFilterOptionsYears.indexOf(filter);
+    this.selectedFilterOptionsYears.splice(index,1);
+  }else if (this.filterOptionsArrayGenre.includes(filter)) {
+    const index = this.selectedFilterOptionsGenres.indexOf(filter);
+    this.selectedFilterOptionsGenres.splice(index,1);
+  }
 
+  const index = this.selectedFilterOptionsYears.indexOf(filter);
   this.selectedFilterOptions.splice(index,1);
 
-  console.log(this.selectedFilterOptions);
 
 }
 
