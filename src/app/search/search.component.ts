@@ -33,6 +33,7 @@ export class SearchComponent implements OnChanges {
 
   showFilter = false;
 
+
   filterOptionsArrayGenre: string[] =
 [
     "Fiction",
@@ -54,8 +55,23 @@ export class SearchComponent implements OnChanges {
     "2025",
     "2024",
     "2023",
+    "2022",
+    "2021",
+    "2020",
+    "2019",
+    "2018",
+    "2017",
+    "2016",
+    "2015",
+    "2014",
+    "2013",
+    "2012",
+    "2011",
+    "2010",
     "2009",
-    "1990"
+    "2008",
+    "2007",
+    "2006"
   ];
 
   selectedFilterOptions: string[] = [];
@@ -103,14 +119,17 @@ addFilterOption(newFilter: string) {
   if (this.filterOptionGenre !== "" && !this.selectedFilterOptionsGenres.includes(this.filterOptionGenre)
      && this.filterOptionsArrayGenre.includes(newFilter)) {
     this.selectedFilterOptionsGenres.push(newFilter);
+    this.selectedFilterOptions.push(newFilter);
+
   }
   if (this.filterOptionYear !== "" && !this.selectedFilterOptionsYears.includes(this.filterOptionYear)
-     && this.filterOptionsArrayYears.includes(newFilter)) {
+     && this.filterOptionsArrayYears.includes(newFilter) && this.selectedFilterOptionsYears.length < 1 ) {
     this.selectedFilterOptionsYears.push(newFilter);
+    this.selectedFilterOptions.push(newFilter);
+    console.log(this.selectedFilterOptionsYears);
   }
 
-  this.selectedFilterOptions.push(newFilter);
-}
+  }
 
 removeFilter(filter: string) {
   if (this.filterOptionsArrayYears.includes(filter)) {
